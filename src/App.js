@@ -1,9 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
 
-import React from "react"
+import React from "react" ;
 
 import ToDo_component from './ToDo_component';
+
+import {Paper, List, Container} from "@material-ui/core" ;
+
+import AddToDo from './AddToDo' ;
 
 class App extends React.Component {
   constructor(props){
@@ -20,12 +24,25 @@ class App extends React.Component {
     //배열을 순회하면서 출력물을 만들 때는 key를 설정해주어야 합니다.
     //key를 설정하지 않으면 출력에는 문제가 없지만 콘솔에 에러가 출력됩니다.
     //생략하면 전역변수 선언 , let 변수 선언
-    let display = this.state.items.map((item, idx) => (
-      <ToDo_component item={item} key={item.id} />
-    ));
+    let display = this.state.items.length > 0 && (
+      <Paper style = {{margin:16}}>
+    {/* //idx 겹치지 않게 */}
+        <list>
+          {this.state.items.map((item,idx) => (
+            <ToDo_component item = {item} key = {idx}/>
+          ))}
+        </list>
+      </Paper>
+    );
     return(
     <div className='App'>
-      {display}
+      <Container maxWidth = "md">
+        <AddToDo />
+      </Container>
+      <Container>
+        {display}
+      </Container>
+
     </div>
     )
   }
